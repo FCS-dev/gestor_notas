@@ -6,6 +6,18 @@ def nota_media(proms):
     return sum(proms) / 3
 
 
+def alumnos_aprobados(notas):
+    if notas:
+        aprobados = [
+            aprob["alumno"]
+            for aprob in notas
+            if (aprob["nota1"] + aprob["nota2"] + aprob["nota3"]) / 3 >= 5
+        ]
+    else:
+        return []
+    return aprobados
+
+
 notas = [
     {"alumno": "Fernandito", "nota1": 8, "nota2": 7, "nota3": 6.5},
     {"alumno": "Josefina", "nota1": 8, "nota2": 8.5, "nota3": 5.5},
@@ -13,6 +25,7 @@ notas = [
 ]
 
 proms = []
+print("Lista de Alumnos\n----------------\n")
 for alumno in notas:
     print(f"Alumno  :{alumno['alumno']}")
     print(f"Nota 1  :{alumno['nota1']}")
@@ -21,5 +34,12 @@ for alumno in notas:
     media = promedio(alumno["nota1"], alumno["nota2"], alumno["nota3"])
     proms.append(media)
     print(f"Promedio:{media:.2f}")
-    print("aprobado" if media >= 5 else "suspendido")
-print(f"\nPromedio gnral: {nota_media(proms):.2f}")
+    print("---")
+    # print("aprobado" if media >= 5 else "suspendido")
+print("==========")
+aprobados = alumnos_aprobados(notas)
+print(f"Promedio gnral: {nota_media(proms):.2f}")
+if aprobados:
+    print("Aprobados:")
+    for alumno in aprobados:
+        print(f"\t{alumno}")
